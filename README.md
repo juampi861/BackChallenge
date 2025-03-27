@@ -9,3 +9,5 @@ Configuraciones necesarias:
    
    
 
+Notas.
+1. Se implementaron Interactor y Adapter tambien para Transferencias, pero finalmente no fue necesaria su utilizacion. Decidi mantenerlo igualmente en el repo.
