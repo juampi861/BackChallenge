@@ -19,6 +19,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CompanyRepositoryAdapterTest {
 
+    private static final String COMPANY_NAME = "companyName";
+    private static final LocalDateTime TEST_DATE = LocalDateTime.now();
+    private static final String TEST_CUIT = "30123456789";
     @Mock
     private CompanyJpaRepository companyJpaRepository;
 
@@ -28,42 +31,40 @@ class CompanyRepositoryAdapterTest {
     @InjectMocks
     private CompanyRepositoryAdapter companyRepositoryAdapter;
 
-    private final LocalDateTime testDate = LocalDateTime.now();
-    private final String testCuit = "30-12345678-9";
-    private Company testCompany;
+    private Company company;
     private CompanyEntity testEntity;
 
     @BeforeEach
     void setUp() {
-        testCompany = new Company();
-        testCompany.setCuit(testCuit);
+        company = new Company(TEST_CUIT,COMPANY_NAME);
+        company.setCuit(TEST_CUIT);
 
         testEntity = new CompanyEntity();
-        testEntity.setCuit(testCuit);
+        testEntity.setCuit(TEST_CUIT);
     }
 
     @Test
     void findCompaniesByCreatedTimeAfter_shouldReturnMappedCompanies() {
-        when(companyJpaRepository.findByCreatedTimeAfter(testDate))
+        when(companyJpaRepository.findByCreatedTimeAfter(TEST_DATE))
                 .thenReturn(List.of(testEntity));
         when(companyEntityMapper.fromEntityToCompany(testEntity))
-                .thenReturn(testCompany);
+                .thenReturn(company);
 
-        final List<Company> result = companyRepositoryAdapter.findCompaniesByCreatedTimeAfter(testDate);
+        final List<Company> result = companyRepositoryAdapter.findCompaniesByCreatedTimeAfter(TEST_DATE);
 
         assertEquals(1, result.size());
-        assertEquals(testCompany, result.get(0));
+        assertEquals(company, result.get(0));
 
-        verify(companyJpaRepository).findByCreatedTimeAfter(testDate);
+        verify(companyJpaRepository).findByCreatedTimeAfter(TEST_DATE);
         verify(companyEntityMapper).fromEntityToCompany(testEntity);
     }
 
     @Test
     void findCompaniesByCreatedTimeAfter_shouldReturnEmptyListWhenNoCompaniesFound() {
-        when(companyJpaRepository.findByCreatedTimeAfter(testDate))
+        when(companyJpaRepository.findByCreatedTimeAfter(TEST_DATE))
                 .thenReturn(Collections.emptyList());
 
-        final List<Company> result = companyRepositoryAdapter.findCompaniesByCreatedTimeAfter(testDate);
+        final List<Company> result = companyRepositoryAdapter.findCompaniesByCreatedTimeAfter(TEST_DATE);
 
         assertTrue(result.isEmpty());
     }
@@ -71,47 +72,47 @@ class CompanyRepositoryAdapterTest {
     @Test
     void findCompaniesWithTransactionsAfterDate_shouldReturnMappedCompanies() {
         // Arrange
-        when(companyJpaRepository.findCompaniesWithTransactionsAfterDate(testDate))
+        when(companyJpaRepository.findCompaniesWithTransactionsAfterDate(TEST_DATE))
                 .thenReturn(List.of(testEntity));
         when(companyEntityMapper.fromEntityToCompany(testEntity))
-                .thenReturn(testCompany);
+                .thenReturn(company);
 
-        List<Company> result = companyRepositoryAdapter.findCompaniesWithTransactionsAfterDate(testDate);
+        List<Company> result = companyRepositoryAdapter.findCompaniesWithTransactionsAfterDate(TEST_DATE);
 
         assertEquals(1, result.size());
-        assertEquals(testCompany, result.get(0));
+        assertEquals(company, result.get(0));
 
-        verify(companyJpaRepository).findCompaniesWithTransactionsAfterDate(testDate);
+        verify(companyJpaRepository).findCompaniesWithTransactionsAfterDate(TEST_DATE);
     }
 
     @Test
     void saveCompany_shouldMapAndSaveEntity() {
-        when(companyEntityMapper.fromCompanyToEntity(testCompany))
+        when(companyEntityMapper.fromCompanyToEntity(company))
                 .thenReturn(testEntity);
-        companyRepositoryAdapter.saveCompany(testCompany);
+        companyRepositoryAdapter.saveCompany(company);
 
-        verify(companyEntityMapper).fromCompanyToEntity(testCompany);
+        verify(companyEntityMapper).fromCompanyToEntity(company);
         verify(companyJpaRepository).save(testEntity);
     }
 
     @Test
     void findCompanyByCuit_shouldReturnMappedCompanyWhenExists() {
-        when(companyJpaRepository.findById(testCuit))
+        when(companyJpaRepository.findById(TEST_CUIT))
                 .thenReturn(Optional.of(testEntity));
         when(companyEntityMapper.fromEntityToCompany(testEntity))
-                .thenReturn(testCompany);
-        final Optional<Company> result = companyRepositoryAdapter.findCompanyByCuit(testCuit);
+                .thenReturn(company);
+        final Optional<Company> result = companyRepositoryAdapter.findCompanyByCuit(TEST_CUIT);
 
         assertTrue(result.isPresent());
-        assertEquals(testCompany, result.get());
+        assertEquals(company, result.get());
     }
 
     @Test
     void findCompanyByCuit_shouldReturnEmptyWhenNotFound() {
-        when(companyJpaRepository.findById(testCuit))
+        when(companyJpaRepository.findById(TEST_CUIT))
                 .thenReturn(Optional.empty());
 
-        final Optional<Company> result = companyRepositoryAdapter.findCompanyByCuit(testCuit);
+        final Optional<Company> result = companyRepositoryAdapter.findCompanyByCuit(TEST_CUIT);
         assertTrue(result.isEmpty());
     }
 }

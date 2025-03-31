@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Find Company Interactor
  */
-public interface FindCompanyInteractor {
+public interface FindCompaniesInteractor {
     /**
      * Find compamnies created after a given date and time
      *

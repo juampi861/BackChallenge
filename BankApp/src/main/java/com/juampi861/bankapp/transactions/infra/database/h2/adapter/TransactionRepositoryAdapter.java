@@ -5,17 +5,19 @@ import com.juampi861.bankapp.transactions.domain.repository.TransactionRepositor
 import com.juampi861.bankapp.transactions.infra.database.h2.mapper.TransactionEntityMapper;
 import com.juampi861.bankapp.transactions.infra.database.h2.repository.TransactionJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 @RequiredArgsConstructor
 public class TransactionRepositoryAdapter implements TransactionRepositoryPort {
     private final TransactionJpaRepository transactionJpaRepository;
     private final TransactionEntityMapper transactionEntityMapper;
 
     @Override
-    public List<Transaction> findTransactionsCreatedTimeAfter(LocalDateTime maxDate) {
+    public List<Transaction> findTransactionsCreatedTimeAfter(final LocalDateTime maxDate) {
         return transactionJpaRepository.findByTransactionDateAfter(maxDate).stream()
                 .map(transactionEntityMapper::fromEntityToTransaction).toList();
     }

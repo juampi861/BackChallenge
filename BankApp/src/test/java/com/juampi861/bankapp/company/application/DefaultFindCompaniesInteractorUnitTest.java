@@ -15,18 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class DefaultFindCompanyInteractorUnitTest {
+class DefaultFindCompaniesInteractorUnitTest {
+    private static final String CUIT_1 = "11111111111";
+    private static final String COMPANY_NAME_1 = "company1";
+    private static final String CUIT_2 = "22222222222";
+    private static final String COMPANY_NAME_2 = "company2";
     @Mock
     private CompanyRepositoryPort companyRepositoryPort;
 
     @InjectMocks
-    private DefaultFindCompanyInteractor findCompanyInteractor;
+    private DefaultFindCompaniesInteractor findCompanyInteractor;
 
     @Test
     void findCompaniesByCreatedTimeAfter_shouldReturnCompanies_whenRepositoryReturnsData() {
         final LocalDateTime testDate = LocalDateTime.now();
-        final Company company1 = new Company();
-        final Company company2 = new Company();
+        final Company company1 = new Company(CUIT_1, COMPANY_NAME_1);
+        final Company company2 = new Company(CUIT_2, COMPANY_NAME_2);
         final List<Company> expectedCompanies = Arrays.asList(company1, company2);
 
         when(companyRepositoryPort.findCompaniesByCreatedTimeAfter(testDate))
@@ -58,8 +62,8 @@ class DefaultFindCompanyInteractorUnitTest {
     @Test
     void findCompaniesWithTransactionsAfterDate_shouldReturnCompanies_whenRepositoryReturnsData() {
         final LocalDateTime testDate = LocalDateTime.now();
-        final Company company1 = new Company();
-        final Company company2 = new Company();
+        final Company company1 = new Company(CUIT_1, COMPANY_NAME_1);
+        final Company company2 = new Company(CUIT_2, COMPANY_NAME_2);
         final List<Company> expectedCompanies = Arrays.asList(company1, company2);
 
         when(companyRepositoryPort.findCompaniesWithTransactionsAfterDate(testDate))
