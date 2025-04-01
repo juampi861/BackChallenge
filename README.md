@@ -41,3 +41,8 @@ La configuracion de keycloak consiste de:
 1. Un realm llamado bank-realm
 2. Un Cliente bank-client-id y secret jX99XftE4g0SeDtb1QvG0mGcR7aKe7rx
 3. Un Rol asociado al cliente, bankRole
+   
+   
+
+Notas.
+1. Se implementaron Interactor y Adapter tambien para Transferencias, pero finalmente no fue necesaria su utilizacion. Decidi mantenerlo igualmente en el repo.
