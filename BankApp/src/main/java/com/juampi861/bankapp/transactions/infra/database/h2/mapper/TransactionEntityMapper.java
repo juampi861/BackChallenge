@@ -13,13 +13,11 @@ public class TransactionEntityMapper {
     private final CompanyEntityMapper companyEntityMapper;
 
     public Transaction fromEntityToTransaction(final TransactionEntity entity) {
-        final Transaction transaction = new Transaction();
-        transaction.setTransactionDate(entity.getTransactionDate());
-        transaction.setUid(entity.getUid());
-        transaction.setAmount(entity.getAmount());
-        transaction.setCompany(companyEntityMapper.fromEntityToCompany(entity.getCompany()));
-        transaction.setDebitAccount(entity.getDebitAccount());
-        transaction.setCreditAccount(entity.getCreditAccount());
-        return transaction;
+        return new Transaction(entity.getUid(),
+                entity.getTransactionDate(),
+                entity.getAmount(),
+                companyEntityMapper.fromEntityToCompany(entity.getCompany()),
+                entity.getCreditAccount(),
+                entity.getDebitAccount());
     }
 }

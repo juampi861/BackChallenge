@@ -15,9 +15,6 @@ public class CompanyDTOMapper {
     }
 
     public Company fromCreateCompanyRequestToCompany(final CreateCompanyRequestDTO createCompanyRequestDTO) {
-        final Company company = new Company();
-        company.setCuit(createCompanyRequestDTO.getCuit());
-        company.setName(createCompanyRequestDTO.getName());
-        return company;
+        return new Company(createCompanyRequestDTO.getCuit(), createCompanyRequestDTO.getName());
     }
 }

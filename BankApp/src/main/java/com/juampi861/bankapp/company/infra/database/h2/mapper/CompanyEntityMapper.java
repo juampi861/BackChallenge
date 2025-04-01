@@ -9,21 +9,17 @@ public class CompanyEntityMapper {
     /**
      * Converts a Company Entity into a Company
      *
-     * @param entity
+     * @param entity The given Entity
      * @return The Company
      */
     public Company fromEntityToCompany(final CompanyEntity entity) {
-        final Company company = new Company();
-        company.setName(entity.getName());
-        company.setCuit(entity.getCuit());
-        company.setCreatedTime(entity.getCreatedTime());
-        return company;
+        return new Company(entity.getCuit(), entity.getName(), entity.getCreatedTime());
     }
 
     /**
      * Converts a Company into a CompanyEntity
      *
-     * @param company
+     * @param company The given Company
      * @return The Company Entity
      */
     public CompanyEntity fromCompanyToEntity(final Company company) {

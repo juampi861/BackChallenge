@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DefaultFindCompanyInteractor implements FindCompanyInteractor {
+public class DefaultFindCompaniesInteractor implements FindCompaniesInteractor {
     private final CompanyRepositoryPort companyRepositoryPort;
 
     @Override
