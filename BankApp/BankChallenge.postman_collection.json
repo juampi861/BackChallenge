@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "95549b16-2b9f-4658-b01b-8072c96f0e1d",
+		"name": "BankChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20513375"
+	},
+	"item": [
+		{
+			"name": "companies",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/companies?createdAfterDateTime=2025-02-25T14:30:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"companies"
+					],
+					"query": [
+						{
+							"key": "createdAfterDateTime",
+							"value": "2025-02-25T14:30:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/transactions?afterDate=2025-02-25T14:30:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "afterDate",
+							"value": "2025-02-25T14:30:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "companiesWithTransactions",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/companies/withTransactions?transactionsAfterDateTime=2025-03-16T14:30:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"companies",
+						"withTransactions"
+					],
+					"query": [
+						{
+							"key": "transactionsAfterDateTime",
+							"value": "2025-03-16T14:30:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createCompany",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cuit\":\"20327838688\",\n    \"name\":\"myCompany\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/companies/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"companies",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "bank-client-id",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "bankUser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "jX99XftE4g0SeDtb1QvG0mGcR7aKe7rx",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/bank-realm/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"bank-realm",
+						"protocol",
+						"openid-connect",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "bank-client-id",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"disabled": true
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
